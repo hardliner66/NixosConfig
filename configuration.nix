@@ -5,10 +5,14 @@
 { config, pkgs, lib, ... }:
 
 let
-  username          = "steve";
+  allow_unfree      = true;
+  user_name         = "steve";
+  user_is_admin     = true;
   hostname          = "nixos0";
   domainname        = "local";
-  allow_unfree      = true;
+  timezone          = "Europe/Vienna";
+  keymap            = "de";
+  locale            = "de_DE";
 in
 {
   imports =
@@ -38,12 +42,12 @@ in
   # Select internationalisation properties.
   i18n = {
     consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "de";
-    defaultLocale = "de_DE.UTF-8";
+    consoleKeyMap = "${keymap}";
+    defaultLocale = "${locale}.UTF-8";
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Vienna";
+  time.timeZone = "${timezone}";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -53,6 +57,10 @@ in
     smartmontools
     vscode
     git
+  ];
+
+  fonts.fonts = with pkgs; [
+    fira-code
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -89,7 +97,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "de";
+  services.xserver.layout = "${keymap}";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable touchpad support.
@@ -102,10 +110,10 @@ in
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.${username} = {
+  users.extraUsers.${user_name} = {
     isNormalUser = true;
-    home = "/home/${username}";
-    extraGroups = ["wheel"];
+    home = "/home/${user_name}";
+    extraGroups = if user_is_admin then ["wheel"] else [];
   };
 
   networking = {
