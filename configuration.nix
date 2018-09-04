@@ -58,6 +58,7 @@ in
     vscode
     git
     google-chrome
+    gcc
   ];
 
   fonts.fonts = with pkgs; [
