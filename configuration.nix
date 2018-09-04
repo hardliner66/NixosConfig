@@ -57,6 +57,7 @@ in
     smartmontools
     vscode
     git
+    google-chrome
   ];
 
   fonts.fonts = with pkgs; [
