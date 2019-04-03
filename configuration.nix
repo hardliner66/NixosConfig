@@ -64,12 +64,24 @@ in
   fonts.fonts = with pkgs; [
     fira-code
   ];
+  
+  environment.extraInit = "
+    export PATH=$PATH:/home/steve/.cargo/bin
+  ";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.bash.enableCompletion = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  
+  programs.nano.nanorc = "
+    set const
+    set tabsize 2
+    set tabstospaces
+    set autoindent
+    set nowrap
+  ";
 
   # List services that you want to enable:
 
