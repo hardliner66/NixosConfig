@@ -122,6 +122,11 @@ in
     domain = "${domainname}";
     hostName = "${hostname}";
     wireless.enable = false;
+    usePredictableInterfaceNames = false;
+    interfaces.eth1.ip4 = [{
+      address = "192.168.56.33";
+      prefixLength = 24;
+    }];
   };
 
   nixpkgs.config = {
