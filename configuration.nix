@@ -123,7 +123,7 @@ in
     hostName = "${hostname}";
     wireless.enable = false;
     usePredictableInterfaceNames = false;
-    interfaces.eth1.ip4 = [{
+    interfaces.eth1.ipv4.addresses = [{
       address = "192.168.56.33";
       prefixLength = 24;
     }];
@@ -132,6 +132,12 @@ in
   nixpkgs.config = {
     allowUnfree = allow_unfree;
   };
+  
+  security.sudo.wheelNeedsPassword = false;
+
+  services.logind.extraConfig = "
+    RuntimeDirectorySize=4G
+  ";
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
